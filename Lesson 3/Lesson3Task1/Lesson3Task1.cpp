@@ -2,10 +2,11 @@
 
 class Calculator
 {
-public:
+private:
     double num1;
     double num2;
 
+public:
     double add()
     {
         double sum = num1 + num2;
