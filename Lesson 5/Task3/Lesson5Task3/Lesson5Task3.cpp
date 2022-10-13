@@ -8,12 +8,12 @@ protected:
     int sides_count = 0;
     std::string name = "Фигура";
 
+public:
+
     Figure(int sides_count)
     {
         this->sides_count = sides_count;
     }
-
-public:
 
     Figure() {}
 
@@ -25,10 +25,10 @@ public:
     {
         if (sides_count == 0) 
         {
-            return 1;
+            return true;
         } else 
         {
-            return 0;
+            return false;
         }
     }
 
@@ -54,6 +54,8 @@ protected:
     int side_a = 0; int side_b = 0; int side_c = 0;
     int angle_A = 0; int angle_B = 0; int angle_C = 0;
 
+public:
+
     Triangle(int side_a, int side_b, int side_c, int angle_A, int angle_B, int angle_C) : Figure(3)
     {
         name = "Треугольник";
@@ -61,9 +63,7 @@ protected:
         this->angle_A = angle_A; this->angle_B = angle_B; this->angle_C = angle_C;
     }
 
-public:
-
-    Triangle() : Triangle(10, 20, 30, 50, 60, 70) {}
+   Triangle() {}
 
     int get_side_a() { return side_a; }
 
@@ -77,19 +77,19 @@ public:
 
     int get_angle_C() { return angle_C; }
 
-    virtual bool check() override
+    bool check() override
     {
         if (sides_count == 3 && angle_A + angle_B + angle_C == 180)
         {
-            return 1;
+            return true;
         }
         else
         {
-            return 0;
+            return false;
         }
     }
 
-    virtual void print_info() override
+    void print_info() override
     {
         Figure::print_info();
         std::cout << "Стороны: "
@@ -106,6 +106,8 @@ protected:
     int side_a = 0; int side_b = 0; int side_c = 0; int side_d = 0;
     int angle_A = 0; int angle_B = 0; int angle_C = 0; int angle_D = 0;
 
+public:
+
     Quadrangle(int side_a, int side_b, int side_c, int side_d, int angle_A, int angle_B, int angle_C, int angle_D) : Figure(4)
     {
 
@@ -114,9 +116,7 @@ protected:
         this->angle_A = angle_A; this->angle_B = angle_B; this->angle_C = angle_C; this->angle_D = angle_D;
     }
 
-public:
-
-    Quadrangle() : Quadrangle(10, 20, 30, 40, 50, 60, 70, 80) {}
+    Quadrangle() {}
 
     int get_side_a() { return side_a; }
 
@@ -134,19 +134,19 @@ public:
 
     int get_angle_D() { return angle_D; }
 
-    virtual bool check() override
+    bool check() override
     {
         if (sides_count == 4 && angle_A + angle_B + angle_C + angle_D == 360)
         {
-            return 1;
+            return true;
         }
         else
         {
-            return 0;
+            return false;
         }
     }
 
-    virtual void print_info() override
+    void print_info() override
     {
         Figure::print_info();
         std::cout << "Стороны: "
@@ -158,34 +158,33 @@ public:
 
 class RightTriangle : public Triangle
 {
-protected:
+public:
 
     RightTriangle(int side_a, int side_b, int side_c, int angle_A, int angle_B) : Triangle()
 
-    {
+    {  
+        sides_count = 3;
         angle_C = 90;
         name = "Прямоугольный треугольник";
         this->side_a = side_a; this->side_b = side_b; this->side_c = side_c;
         this->angle_A = angle_A; this->angle_B = angle_B;
     }
 
-public:
+    RightTriangle() {}
 
-    RightTriangle() : RightTriangle(10, 20, 30, 50, 60) {}
-
-    virtual bool check() override
+    bool check() override
     {
         if (Triangle::check() && angle_C == 90)
         {
-            return 1;
+            return true;
         }
         else
         {
-            return 0;
+            return false;
         }
     }
 
-    virtual void print_info() override
+    void print_info() override
     {
         Triangle::print_info();
     }
@@ -193,10 +192,11 @@ public:
 
 class IsoTriangle : public Triangle
 {
-protected:
+public:
 
     IsoTriangle(int side_a, int side_b, int angle_A, int angle_B) : Triangle()
     {
+        sides_count = 3;
         side_c = side_a;
         angle_C = angle_A;
         name = "Равнобедренный треугольник";
@@ -204,23 +204,21 @@ protected:
         this->angle_A = angle_A; this->angle_B = angle_B;
     }
 
-public:
+    IsoTriangle() {}
 
-    IsoTriangle() : IsoTriangle(10, 20, 50, 60) {}
-
-    virtual bool check() override
+    bool check() override
     {
         if (Triangle::check() && side_c == side_a && angle_C == angle_A)
         {
-            return 1;
+            return true;
         }
         else
         {
-            return 0;
+            return false;
         }
     }
 
-    virtual void print_info() override
+    void print_info() override
     {
         Triangle::print_info();
     }
@@ -228,10 +226,11 @@ public:
 
 class EqualTriangle : public Triangle
 {
-protected:
+public:
 
     EqualTriangle(int side_a, int angle_A) : Triangle()
     {
+        sides_count = 3;
         side_b = side_c = side_a;
         angle_B = angle_C = angle_A;
         name = "Равносторонний треугольник";
@@ -239,23 +238,21 @@ protected:
         this->angle_A = angle_A;
     }
 
-public:
+    EqualTriangle() {}
 
-    EqualTriangle() : EqualTriangle(30, 60) {}
-
-    virtual bool check() override
+    bool check() override
     {
         if (Triangle::check() && side_b == side_c && side_c == side_a && angle_B == angle_C && angle_C == angle_A)
         {
-            return 1;
+            return true;
         }
         else
         {
-            return 0;
+            return false;
         }
     }
 
-    virtual void print_info() override
+    void print_info() override
     {
         Triangle::print_info();
     }
@@ -263,10 +260,11 @@ public:
 
 class Parallelogram : public Quadrangle
 {
-protected:
+public:
 
     Parallelogram(int side_a, int side_b, int angle_A, int angle_B) : Quadrangle()
     {
+        sides_count = 4;
         side_c = side_a;
         side_d = side_b;
         angle_C = angle_A;
@@ -278,23 +276,21 @@ protected:
         this->angle_B = angle_B;
     }
 
-public:
+    Parallelogram() {}
 
-    Parallelogram() : Parallelogram(20, 30, 30, 40) {}
-
-    virtual bool check() override
+    bool check() override
     {
         if (Quadrangle::check() && side_c == side_a && side_d == side_b && angle_C == angle_A && angle_D == angle_B)
         {
-            return 1;
+            return true;
         }
         else
         {
-            return 0;
+            return false;
         }
     }
 
-    virtual void print_info() override
+    void print_info() override
     {
         Quadrangle::print_info();
     }
@@ -302,10 +298,11 @@ public:
 
 class Rectangle : public Parallelogram
 {
-protected:
+public:
 
     Rectangle(int side_a, int side_b) : Parallelogram()
     {
+        sides_count = 4;
         angle_A = 90;
         angle_B = angle_C = angle_D = angle_A;
         side_c = side_a;
@@ -315,23 +312,21 @@ protected:
         this->side_b = side_b;
     }
 
-public:
+    Rectangle() {}
 
-    Rectangle() : Rectangle(10, 20) {}
-
-    virtual bool check() override
+    bool check() override
     {
         if (Parallelogram::check() && angle_C == angle_A && angle_A == angle_D && angle_A == angle_B && angle_A == 90)
         {
-            return 1;
+            return true;
         }
         else
         {
-            return 0;
+            return false;
         }
     }
 
-    virtual void print_info() override
+    void print_info() override
     {
         Quadrangle::print_info();
     }
@@ -339,32 +334,33 @@ public:
 
 class Quadrate : public Rectangle
 {
-protected:
+public:
 
     Quadrate(int side_a) : Rectangle()
     {
+        sides_count = 4;
         side_b = side_c = side_d = side_a;
+        angle_A = 90;
+        angle_B = angle_C = angle_D = angle_A;
         name = "Квадрат";
         this->side_a = side_a;
     }
 
-public:
+    Quadrate() {}
 
-    Quadrate() : Quadrate(20) {}
-
-    virtual bool check() override
+    bool check() override
     {
         if (Rectangle::check() && side_b == side_c && side_b == side_d && side_b == side_a)
         {
-            return 1;
+            return true;
         }
         else
         {
-            return 0;
+            return false;
         }
     }
 
-    virtual void print_info() override
+    void print_info() override
     {
         Quadrangle::print_info();
     }
@@ -372,10 +368,11 @@ public:
 
 class Rhombus : public Parallelogram
 {
-protected:
+public:
 
     Rhombus(int side_a, int angle_A, int angle_B) : Parallelogram()
     {
+        sides_count = 4;
         side_b = side_c = side_d = side_a;
         angle_C = angle_A;
         angle_D = angle_B;
@@ -385,23 +382,21 @@ protected:
         this->angle_B = angle_B;
     }
 
-public:
+    Rhombus() {}
 
-    Rhombus() : Rhombus(30, 30, 40) {}
-
-    virtual bool check() override
+    bool check() override
     {
         if (Parallelogram::check() && side_b == side_c && side_b == side_d && side_b == side_a)
         {
-            return 1;
+            return true;
         }
         else
         {
-            return 0;
+            return false;
         }
     }
 
-    virtual void print_info() override
+    void print_info() override
     {
         Quadrangle::print_info();
     }
@@ -412,15 +407,15 @@ int main(int argc, char** argv)
     setlocale(LC_ALL, "Russian");
 
     Figure figure;
-    Triangle triangle;
-    RightTriangle right_triangle;
-    IsoTriangle iso_triangle;
-    EqualTriangle equal_triangle;
-    Quadrangle quadrangle;
-    Rectangle rectangle;
-    Quadrate quadrate;
-    Parallelogram parallelogram;
-    Rhombus rhombus;
+    Triangle triangle(10, 20, 30, 50, 60, 70);
+    RightTriangle right_triangle(10, 20, 30, 50, 60);
+    IsoTriangle iso_triangle(10, 20, 50, 60);
+    EqualTriangle equal_triangle(30, 60);
+    Quadrangle quadrangle(10, 20, 30, 40, 50, 60, 70, 80);
+    Rectangle rectangle(10, 20);
+    Quadrate quadrate(20);
+    Parallelogram parallelogram(20, 30, 30, 40);
+    Rhombus rhombus(30, 30, 40);
 
     figure.print_info();
     std::cout << std::endl;

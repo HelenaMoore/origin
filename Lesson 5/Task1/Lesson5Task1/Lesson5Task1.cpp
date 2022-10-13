@@ -26,6 +26,12 @@ public:
     {
         return name;
     }
+
+    void print_description(Figure &figure)
+    {
+        std::cout << "Название: "<< figure.get_name() << std::endl 
+                  << "Количество сторон: " << figure.get_sides_count() << std::endl;
+    }
 };
 
 class Triangle : public Figure
@@ -48,14 +54,6 @@ public:
     }
 };
 
-void print_description(Figure figure, Triangle triangle, Quadrangle quadrangle)
-{
-    std::cout << "Количество сторон: " << std::endl;
-    std::cout << figure.get_name() << ": " << figure.get_sides_count() << std::endl;
-    std::cout << triangle.get_name() << ": " << triangle.get_sides_count() << std::endl;
-    std::cout << quadrangle.get_name() << ": " << quadrangle.get_sides_count() << std::endl;
-}
-
 int main(int argc, char** argv)
 {
     setlocale(LC_ALL, "Russian");
@@ -64,7 +62,9 @@ int main(int argc, char** argv)
     Triangle triangle;
     Quadrangle quadrangle;
 
-    print_description(figure, triangle, quadrangle);
+    figure.print_description(figure);
+    triangle.print_description(triangle);
+    quadrangle.print_description(quadrangle);
 
     return 0;
 }

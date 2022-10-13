@@ -5,7 +5,7 @@ class Figure
 {
 protected:
 
-    std::string name = "Фигура";
+    std::string name;
 
     Figure(std::string name)
     {
@@ -14,7 +14,10 @@ protected:
 
 public:
 
-    Figure() {}
+    Figure() 
+    {
+        name = "Фигура";
+    }
 
     std::string get_name() { return name; }
 };
@@ -26,16 +29,16 @@ protected:
     int side_a = 0; int side_b = 0; int side_c = 0;
     int angle_A = 0; int angle_B = 0; int angle_C = 0;
 
+public:
+    
     Triangle(int side_a, int side_b, int side_c, int angle_A, int angle_B, int angle_C) : Figure()
     {
         name = "Треугольник";
         this->side_a = side_a; this->side_b = side_b; this->side_c = side_c;
         this->angle_A = angle_A; this->angle_B = angle_B; this->angle_C = angle_C;
     }
-
-public:
     
-    Triangle() : Triangle (10, 20, 30, 50, 60, 70) {}
+    Triangle() {}
 
     int get_side_a() { return side_a; }
 
@@ -57,6 +60,8 @@ protected:
     int side_a = 0; int side_b = 0; int side_c = 0; int side_d = 0;
     int angle_A = 0; int angle_B = 0; int angle_C = 0; int angle_D = 0;
     
+public:
+
     Quadrangle(int side_a, int side_b, int side_c, int side_d, int angle_A, int angle_B, int angle_C, int angle_D) : Figure()
     {
   
@@ -65,9 +70,7 @@ protected:
         this->angle_A = angle_A; this->angle_B = angle_B; this->angle_C = angle_C; this->angle_D = angle_D;
     }
 
-public:
-
-    Quadrangle() : Quadrangle (10, 20, 30, 40, 50, 60, 70, 80) {}
+    Quadrangle() {}
 
     int get_side_a() { return side_a; }
 
@@ -88,7 +91,7 @@ public:
 
 class RightTriangle : public Triangle
 {
-protected:
+public:
 
     RightTriangle(int side_a, int side_b, int side_c, int angle_A, int angle_B) : Triangle()
 
@@ -99,14 +102,12 @@ protected:
         this->angle_A = angle_A; this->angle_B = angle_B;
     }
 
-public:
-
-    RightTriangle() : RightTriangle (10, 20, 30, 50, 60) {}
+    RightTriangle() {}
 };
 
 class IsoTriangle : public Triangle
 {
-protected:
+public:
 
     IsoTriangle(int side_a, int side_b, int angle_A, int angle_B) : Triangle()
     {
@@ -117,14 +118,12 @@ protected:
         this->angle_A = angle_A; this->angle_B = angle_B;
     }
 
-public:
-
-    IsoTriangle() : IsoTriangle(10, 20, 50, 60) {}
+    IsoTriangle() {}
 };
 
 class EqualTriangle : public Triangle
 {
-protected:
+public:
 
     EqualTriangle(int side_a, int angle_A) : Triangle()
     {
@@ -135,14 +134,12 @@ protected:
         this->angle_A = angle_A;
     }
 
-public:
-
-    EqualTriangle() : EqualTriangle(30, 60) {}
+    EqualTriangle() {}
 };
 
 class Parallelogram : public Quadrangle
 {
-protected:
+public:
 
     Parallelogram(int side_a, int side_b, int angle_A, int angle_B) : Quadrangle()
     {
@@ -157,15 +154,13 @@ protected:
         this->angle_B = angle_B;
     }
 
-public:
-
-    Parallelogram() : Parallelogram(20, 30, 30, 40) {}
+    Parallelogram() {}
 };
 
 
 class Rectangle : public Parallelogram
 {
-protected:
+public:
 
     Rectangle(int side_a, int side_b) : Parallelogram()
     {
@@ -178,30 +173,28 @@ protected:
         this->side_b = side_b;
     }
 
-public:
-
-    Rectangle() : Rectangle(10, 20) {}
+    Rectangle() {}
 };
 
 class Quadrate : public Rectangle
 {
-protected:
+public:
 
     Quadrate(int side_a) : Rectangle()
     {
         side_b = side_c = side_d = side_a;
+        angle_A = 90;
+        angle_B = angle_C = angle_D = angle_A;
         name = "Квадрат";
         this->side_a = side_a;
     }
 
-public:
-
-    Quadrate() : Quadrate (20) {}
+    Quadrate() {}
 };
 
 class Rhombus : public Parallelogram
 {
-protected:
+public:
 
     Rhombus(int side_a, int angle_A, int angle_B) : Parallelogram()
     {
@@ -214,14 +207,12 @@ protected:
         this->angle_B = angle_B;
     }
 
-public:
-
-    Rhombus() : Rhombus(30, 30, 40) {}
+    Rhombus() {}
 };
 
-void print_description(Triangle triangle, RightTriangle right_triangle, IsoTriangle iso_triangle,
-                        EqualTriangle equal_triangle, Quadrangle quadrangle, Rectangle rectangle,
-                        Quadrate quadrate, Parallelogram parallelogram, Rhombus rhombus)
+void print_description(Triangle &triangle, RightTriangle &right_triangle, IsoTriangle &iso_triangle,
+                        EqualTriangle &equal_triangle, Quadrangle &quadrangle, Rectangle &rectangle,
+                        Quadrate &quadrate, Parallelogram &parallelogram, Rhombus &rhombus)
 {
     std::cout << triangle.get_name() << ": " << std::endl
         << "Стороны: "
@@ -282,15 +273,15 @@ int main(int argc, char** argv)
 {
     setlocale(LC_ALL, "Russian");
 
-    Triangle triangle;
-    RightTriangle right_triangle;
-    IsoTriangle iso_triangle;
-    EqualTriangle equal_triangle;
-    Quadrangle quadrangle;
-    Rectangle rectangle;
-    Quadrate quadrate;
-    Parallelogram parallelogram;
-    Rhombus rhombus;
+    Triangle triangle (10, 20, 30, 50, 60, 70);
+    RightTriangle right_triangle (10, 20, 30, 50, 60);
+    IsoTriangle iso_triangle (10, 20, 50, 60);
+    EqualTriangle equal_triangle (30, 60);
+    Quadrangle quadrangle (10, 20, 30, 40, 50, 60, 70, 80);
+    Rectangle rectangle (10, 20);
+    Quadrate quadrate (20);
+    Parallelogram parallelogram (20, 30, 30, 40);
+    Rhombus rhombus (30, 30, 40);
 
     print_description(triangle, right_triangle, iso_triangle, equal_triangle, quadrangle, rectangle, quadrate, parallelogram, rhombus);
     
